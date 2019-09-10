@@ -18,14 +18,13 @@ First and foremost, Artillery exits with an appropriate zero or non-zero exit co
 K8s provides access to container logs for n and n-1 container instances. Since Testcar is a run-once-and-stay-dead, Testcar Gate will still have access to the one and only log set (n-1).
 
 ## Preventing container restarts
-We don't want Testcar continuously running. We also don't want it constantly overwriting the n-1 logs that Testcar Gate is relying on.
-TODO: Testcar runs once upon deployment, and then never again. How do we ensure it doesn't? Probably straightforward. Just call it out here anyway.
+We don't want Testcar continuously running. We also don't want it constantly overwriting the n-1 logs that Testcar Gate is relying on. Testcar runs once upon deployment, and then never again. We use a `restartPolicy` of `Never` on the pod to ensure this. See https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy (and https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#examples which really is better) for more info.
 
 # Prerequisites
 Testcar will need to call the SUT as if it were a regular client. To this end, it will need to gather any credentials required to make those requests before making them.
 ## OAuth module
 One means a SUT has of authenticating and authorizing Testcar is via an OAuth token. A Testcar module will need to exist that enables it to make a preflight request to a token service to get a bearer token.
 ## Kerberos module
-Another means of authorizing Testcar is with a Kerberos ticket. Another module will be required that can perform this step.
+Another means of authorizing Testcar is with a Kerberos ticket. Another module will be required that can perform this step. In reality, the Kerberos "module" will likely just end up being some configuration of the hchb/kerberos-base base container image.
 ## Chaining modules
 It's possible that the the token service might require Kerberos auth before providing a bearer token. Chaining modules can facilitate this.

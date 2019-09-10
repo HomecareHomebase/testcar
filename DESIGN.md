@@ -43,9 +43,14 @@ Since this is a development tool and not within the customer's user flow, high a
 ## Disaster Recovery
 Testcar itself has no DR system in place, since there is no durable storage or recovery of data needed. Testcar only operates at time of deployment of its SUT, so any DR efforts to deploy the SUT to another cluster will result in Testcar being auto-injected and activated.
 
-# Security
+# Non-functional requirements
+## Security
 [Threat Model](https://htmlpreview.github.com/?https://github.com/Balfa/testcar/blob/master/Testcar_threat_model_report.htm)
 (See also [Testcar_threat_model.tm7](Testcar_threat_model.tm7), created using Microsft Threat Modeling Tool 7.1)
+## Scalability
+Testcar doesn't require any kind of horizontal scalability. It makes a best-effort one-shot attempt to run its suite of tests, and logs any success or failure.
+## Performance
+Testcar doesn't operate within the customer's user flow. Poor performance will result in slower deployments and hence slower feedback loops to developers. As such, while performance is not crucial, it should not be completely ignored.
 
 # Shortcomings of this documentation
 We're currently in a strange place where Artillery is both a module for Testcar, and _the only_ way Testcar works for the foreseeable future. As such, documentation might flip back and forth between taking Artillery's use for granted, and not.
