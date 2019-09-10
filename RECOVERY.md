@@ -1,7 +1,5 @@
 # Fault Model and Recovery Playbook
 
-![failure.png](/.attachments/failure-bf2d3f87-7f7e-42f5-a26e-dc61439a448f.png)
-
 ## Kubernetes cluster goes offline
 The entire cluster going offline is a rare edge case event, and should be treated as a disaster scenario (with recovery).
 
