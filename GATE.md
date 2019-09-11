@@ -18,6 +18,7 @@ Testcar Gate will also have access to ADO variables that will aid it in figuring
 # Pass or fail
 * If Testcar's logs show a (explicitly included) status code of 0, then the tests have succeeded.
   * Continue and allow the ADO Release to succeed.
+  * A subsequent ADO Kubernetes task should be responsible for updating the selectors to cut over to the new version.
 * If Testcar's logs cannot be obtained, or do not include a final status code, or have a non-zero final status code, then the tests are considered to have failed and Testcar Gate will flag the ADO Release as failing.
 * A Timeout for the entire build task is shall be 5 minutes. If this passes without having obtained a status code of zero from the logs, then Testcar Gate will flag the ADO Release as failing.
 
