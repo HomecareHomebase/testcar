@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tct
+  namespace: default
+  labels:
+    app: tct
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tct
+  template:
+    metadata:
+      labels:
+        app: tct
+    spec:
+      imagePullSecrets:
+      - name: "hchbdev-reg"
+      volumes:
+      - name: integration-tests
+        emptyDir: {}
+      containers:
+      - name: tct
+        image: hchbdev.azurecr.io/testcar:latest
+        volumeMounts:
+        - name: integration-tests
+          mountPath: /etc/
+        env:
+          - name: pkpassphrase
+            value: "correct horse battery staple"
